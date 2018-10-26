@@ -1,0 +1,137 @@
+﻿<Window x:Class="Szyfr_homofoniczny.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Szyfr_homofoniczny"
+        mc:Ignorable="d"
+        Title="Szyfr Homofoniczny" Height="600" Width="800"
+        Icon="icon.png"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen">
+    <TabControl x:Name="tabControl" Background="#21232C">
+
+        <TabItem Header="Szyfrowanie i deszyfrowanie">
+            <Grid Background="#21232C" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+                <StackPanel Background="#79C0BE" HorizontalAlignment="Left" Height="523" Margin="10,10,0,10" VerticalAlignment="Top" Width="377" Grid.ColumnSpan="2">
+                    <StackPanel>
+                        <TextBlock x:Name="cipherTitle" Margin="0,10,0,0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Szyfrowanie" VerticalAlignment="Top" FontSize="24" FontFamily="Helvetica" FontWeight="Light" />
+                        <Border BorderBrush="#E4DFDA" BorderThickness="0,1,0,0" Margin="15,8" />
+                        <WrapPanel Margin="10 0">
+                            <TextBlock FontSize="14" FontWeight="DemiBold" Foreground="Black" Text="Co chcesz zaszyfrować/odszyfrować?" />
+                            <RadioButton FontSize="14" VerticalContentAlignment="Center" x:Name="cipherTextBoxRadioButton" IsChecked="True" Content="Tekst" Margin="10,0" Checked="cipherTextBoxRadioButton_Checked"/>
+                            <RadioButton FontSize="14" VerticalContentAlignment="Center"  x:Name="cipherFileRadioButton" Content="Plik" Checked="cipherFileRadioButton_Checked"/>
+                        </WrapPanel>
+                    </StackPanel>
+                    <StackPanel x:Name="cipherTextBoxStackPanel" Margin="0 25" >
+                        <Label x:Name="cipherTextBoxLabel" Margin="8,0,10,0" Target="{Binding ElementName=cipherTextBox}" Content="Tekst do zaszyfrowania" />
+                        <TextBox x:Name="cipherTextBox" MaxHeight="150" MinHeight="30" VerticalScrollBarVisibility="Auto"  AcceptsReturn="True" Background="#21232C" Foreground="#E4DFDA" Height="Auto" Padding="6" Margin="10,0,10,5" TextWrapping="Wrap" FontSize="12" Text="" />
+                        <WrapPanel>
+                            <Button x:Name="cipherTextBoxButton" Width="112" Click="cipherTextBoxButton_Click"  Background="#E4DFDA" Margin="10,0,0,5" Height="32" Content="Szyfruj tekst"/>
+                            <Button x:Name="cipherTextBoxTextSaveButton" Click="cipherTextBoxTextSaveButton_Click"  Background="#E4DFDA" Margin="1,0,1,5" Height="32" Content="Zapisz tekst do pliku" Width="117"/>
+                            <Button x:Name="cipherTextBoxTableSaveButton" Click="cipherTextBoxTableSaveButton_Click"  Background="#E4DFDA" Margin="0,0,10,5" Height="32" Content="Zapisz tablicę do pliku" Width="126"/>
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <StackPanel x:Name="cipherFileStackPanel" Margin="0,25" Visibility="Collapsed">
+                        <Label x:Name="cipherFileDialogLabel" Margin="8,0,10,0" Target="{Binding ElementName=cipherFileDialog}" Content="Plik do zaszyfrowania"/>
+                        <Button x:Name="cipherFileDialog" MouseEnter="cipherFileDialog_MouseEnter" MouseLeave="cipherFileDialog_MouseLeave" Click="cipherFileDialog_Click" Background="#21232C" Foreground="#E4DFDA"  Height="30"  Margin="10,0,10,1" Content="Wybierz plik" FontSize="12" />
+                        <TextBlock x:Name="cipherFileName" Margin="10,0,10,2"  Text="Nie wybrano pliku" />
+                        <WrapPanel>
+                            <Button x:Name="cipherFileDialogButton" Width="112" Click="cipherFileDialogButton_Click"  Background="#E4DFDA" Margin="10,0,0,5" Height="32" Content="Szyfruj plik"/>
+                            <Button x:Name="cipherFileDialogTextSaveButton" Click="cipherFileDialogTextSaveButton_Click" Background="#E4DFDA" Margin="1,0,1,5" Height="32" Content="Zapisz tekst do pliku" Width="117"/>
+                            <Button x:Name="cipherFileDialogTableSaveButton" Click="cipherFileDialogTableSaveButton_Click"  Background="#E4DFDA" Margin="0,0,10,5" Height="32" Content="Zapisz tablice do pliku" Width="126"/>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <FlowDocumentReader xml:lang="pl" x:Name="flowDocumentNormal" FontFamily="Times New Roman" Height="200" Margin="10,0,10,0" Width="168"/>
+                            <FlowDocumentReader xml:lang="pl" x:Name="flowDocumentCipher" FontFamily="Times New Roman" Height="200" Margin="10,0,10,0"  Width="168"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Background="#E4DFDA" HorizontalAlignment="Right" Height="523" Margin="0,10,10,10" VerticalAlignment="Top" Width="377" Grid.Column="1">
+                    <StackPanel Margin="0, 0, 0, 16">
+                        <TextBlock x:Name="decipherTitle" Margin="0,10,0,0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Deszyfrowanie" VerticalAlignment="Top" FontSize="24" FontFamily="Helvetica" FontWeight="Light" />
+                        <Border BorderBrush="#79C0BE" BorderThickness="0,1,0,0" Margin="15,8" />
+                    </StackPanel>
+                    <StackPanel x:Name="decipherTextBoxStackPanel" Margin="0 29">
+                        <Label x:Name="decipherTextBoxLabel" Margin="8,0,10,0" Target="{Binding ElementName=decipherTextBox}" Content="Tekst do odszyfrowania" />
+                        <TextBox x:Name="decipherTextBox" MaxHeight="150" MinHeight="30" VerticalScrollBarVisibility="Auto"  AcceptsReturn="True" Background="#21232C" Foreground="#79C0BE" Height="Auto" Padding="6" Margin="10,0,10,5" TextWrapping="Wrap" FontSize="12" Text=""/>
+                        <WrapPanel>
+                            <Button x:Name="decipherTextBoxButton"  Click="decipherTextBoxButton_Click"  Width="112" Background="#79C0BE" Margin="10,0,0,5" Height="32" Content="Odzyfruj tekst"/>
+                            <Button x:Name="decipherTextBoxTextSaveButton" Click="decipherTextBoxTextSaveButton_Click"  Background="#79C0BE" Margin="1,0,1,5" Height="32" Content="Zapisz tekst do pliku" Width="117"/>
+                            <Button x:Name="decipherTextBoxTableSaveButton" Click="decipherTextBoxTableSaveButton_Click"  Background="#79C0BE" Margin="0,0,10,5" Height="32" Content="Zapisz tablicę do pliku" Width="126"/>
+                        </WrapPanel>
+
+                    </StackPanel>
+                    <StackPanel x:Name="decipherFileStackPanel" Margin="0,29" Visibility="Collapsed">
+                        <Label x:Name="decipherFileDialogLabel" Margin="8,0,10,0" Target="{Binding ElementName=decipherFileDialog}" Content="Plik do odszyfrowania"/>
+                        <Button x:Name="decipherFileDialog" MouseEnter="decipherFileDialog_MouseEnter" MouseLeave="decipherFileDialog_MouseLeave" Click="decipherFileDialog_Click" Background="#21232C" Foreground="#79C0BE"  Height="30"  Margin="10,0,10,1" Content="Wybierz plik" FontSize="12" />
+                        <TextBlock x:Name="decipherFileName" Margin="10,0,10,2"  Text="Nie wybrano pliku" />
+                        <WrapPanel>
+                            <Button x:Name="decipherFileDialogButton" Width="112" Background="#79C0BE" Margin="10,0,0,5" Height="32" Content="Odszyfruj plik" Click="decipherFileDialogButton_Click"/>
+                            <Button x:Name="decipherFileDialogTextSaveButton" Click="decipherFileDialogTextSaveButton_Click"  Background="#79C0BE" Margin="1,0,1,5" Height="32" Content="Zapisz tekst do pliku" Width="117"/>
+                            <Button x:Name="decipherFileDialogTableSaveButton" Click="decipherFileDialogTableSaveButton_Click"  Background="#79C0BE" Margin="0,0,10,5" Height="32" Content="Zapisz tablicę do pliku" Width="126"/>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <FlowDocumentReader xml:lang="pl" x:Name="flowDocumentCipheredNormal" FontFamily="Times New Roman" Height="200" Margin="10,0,10,0" Width="168"/>
+                            <FlowDocumentReader  xml:lang="pl" x:Name="flowDocumentCipheredDecrypted" FontFamily="Times New Roman" Height="200" Margin="10,0,10,0"  Width="168"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Text="Jak uzupełnić Tablicę Homofonów?" Foreground="Black" FontWeight="Bold" Width="300"  Margin="20,453,468,65"/>
+                <Button x:Name="generateHomophonesButton" Background="LightCoral" VerticalAlignment="Bottom" Margin="20,0,658,10" Height="50" FontSize="13" Content="Automatycznie" Click="generateHomophonesButton_Click"/>
+                <Button x:Name="typeHomophonesButton" Background="LightBlue" VerticalAlignment="Bottom" Margin="144,0,538,10" Height="50" FontSize="13" Content="Ręcznie" Click="typeHomophonesButton_Click"/>
+                <Button x:Name="loadHomophonesButton" Background="LightPink" VerticalAlignment="Bottom" Margin="267,0,0,10" Height="50" Width="110" FontSize="13" Content="Wczytaj z pliku" Click="loadHomophonesButton_Click" HorizontalAlignment="Left"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Tablica Homofonów" x:Name="tabItemHomophones" IsEnabled="False">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                <StackPanel Margin="10">
+                    <StackPanel x:Name="homophonesStackPanel">
+
+                    </StackPanel>
+                    <Button VerticalAlignment="Bottom" x:Name="manualHomophoneSend" Visibility="Hidden" Background="LightCoral" Height="50" FontSize="20" Click="manualHomophoneSend_Click" >Prześlij</Button>
+                </StackPanel>
+
+            </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Pomoc">
+            <ScrollViewer>
+                <TextBox x:Name="help" FontSize="12" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True"/>
+            </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Krok po kroku">
+            <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="stepbystepStackPanel" >
+                <StackPanel  Margin="70 20">
+                    <TextBlock FontSize="14" Foreground="AntiqueWhite" Text="Wprowadź tekst do zaszyfrowania."/>
+                        <TextBox x:Name="t1"  Height="Auto"  MaxHeight="150" MinHeight="30" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" ></TextBox>
+                    <Button x:Name="b1" Content="Kolejny krok" Height="40" Click="b1_Click"/>
+                </StackPanel>
+                <StackPanel Margin="70 10">
+                    <TextBlock FontSize="14" Foreground="AntiqueWhite" Text="Zliczanie liczby powtórzeń liter."/>
+                        <TextBox x:Name="t2" Height="Auto" AcceptsReturn="True" IsReadOnly="True" MaxHeight="150" MinHeight="30" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"/>
+                        <Button x:Name="b2" Content="Kolejny krok" Height="40" Click="b2_Click"/>
+                </StackPanel>
+                <StackPanel  Margin="70 10">
+                    <TextBlock FontSize="14" Foreground="AntiqueWhite" Text="Sprawdzenie ile homofonów można przypisać do liter."/>
+                        <TextBox x:Name="t3"  IsReadOnly="True" AcceptsReturn="True" MaxHeight="150" MinHeight="30" VerticalScrollBarVisibility="Auto"></TextBox>
+                    <Button x:Name="b3" Content="Kolejny krok" Height="40" Click="b3_Click"/>
+                </StackPanel>
+                <StackPanel  Margin="70 10">
+                    <TextBlock FontSize="14" Foreground="AntiqueWhite" Text="Przypisanie homofonów do liter."/>
+                        <TextBox x:Name="t4"  IsReadOnly="True" AcceptsReturn="True" MaxHeight="150" MinHeight="30" VerticalScrollBarVisibility="Auto"></TextBox>
+                    <Button x:Name="b4" Content="Kolejny krok" Height="40" Click="b4_Click"/>
+                </StackPanel>
+                <StackPanel  Margin="70 10">
+                    <TextBlock FontSize="14" Foreground="AntiqueWhite" Text="Szyfrowanie tekstu jawnego losowymi homofonami litery."/>
+                        <TextBox x:Name="t5" IsReadOnly="True" AcceptsReturn="True" MaxHeight="150" MinHeight="30" VerticalScrollBarVisibility="Auto" ></TextBox>
+                    </StackPanel>
+
+            </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
+</Window>
